@@ -5,7 +5,8 @@ const ForbiddenError = require('../errors/forbidden-error');
 const { badRequestMessage, notFoundMessage, forbiddenMessage } = require('../utils/constants');
 
 const getAllMovies = (req, res, next) => {
-  Movie.find({})
+  const { _id } = req.user;
+  Movie.find({ owner: _id })
     .populate('owner')
     .then((movies) => {
       res.send(movies);

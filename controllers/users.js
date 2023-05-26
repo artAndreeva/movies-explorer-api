@@ -4,8 +4,8 @@ const User = require('../models/user');
 const BadRequestError = require('../errors/bad-request-error');
 const NotFoundError = require('../errors/not-found-error');
 const ConflictError = require('../errors/conflict-error');
-
-const { NODE_ENV, JWT_SECRET } = process.env;
+const { badRequestMessage, notFoundMessage, conflictMessage } = require('../utils/constants');
+const { JWT_SECRET } = require('../config');
 
 const registerUser = (req, res, next) => {
   const {
@@ -29,7 +29,7 @@ const registerUser = (req, res, next) => {
       if (err.name === 'ValidationError') {
         next(new BadRequestError('Переданы некорректные данные'));
       } else if (err.code === 11000) {
-        next(new ConflictError('Пoльзователь уже зарегистрирован'));
+        next(new ConflictError(conflictMessage));
       } else {
         next(err);
       }
@@ -42,7 +42,7 @@ const authorizeUser = (req, res, next) => {
     .then((user) => {
       const token = jwt.sign(
         { _id: user._id },
-        NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
+        JWT_SECRET,
         { expiresIn: '7d' },
       );
       res.send({ token });
@@ -55,7 +55,7 @@ const getUser = (req, res, next) => {
   User.findById(_id)
     .then((user) => {
       if (!user) {
-        throw new NotFoundError('Такой пользователь не найден');
+        throw new NotFoundError(notFoundMessage);
       }
       res.send(user);
     })
@@ -75,13 +75,13 @@ const updateUser = (req, res, next) => {
   )
     .then((user) => {
       if (!user) {
-        throw new NotFoundError('Такой пользователь не найден');
+        throw new NotFoundError(notFoundMessage);
       }
       res.send(user);
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        next(new BadRequestError('Переданы некорректные данные'));
+        next(new BadRequestError(badRequestMessage));
       } else {
         next(err);
       }

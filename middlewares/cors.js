@@ -1,13 +1,13 @@
 const allowedCors = [
-  'https://films.lajolla.nomoredomains.monster',
-  'http://films.lajolla.nomoredomains.monster',
-  'https://api.films.lajolla.nomoredomains.monster',
-  'http://api.films.lajolla.nomoredomains.monster',
+  'https://movies.lajolla.nomoredomains.monster',
+  'http://movies.lajolla.nomoredomains.monster',
+  'https://api.movies.lajolla.nomoredomains.monster',
+  'http://api.movies.lajolla.nomoredomains.monster',
   'http://localhost:3000',
   'http://localhost:3001',
 ];
 
-module.exports = (req, res, next) => {
+const cors = (req, res, next) => {
   const { origin } = req.headers;
   const { method } = req;
   const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
@@ -25,3 +25,5 @@ module.exports = (req, res, next) => {
 
   return next();
 };
+
+module.exports = cors;

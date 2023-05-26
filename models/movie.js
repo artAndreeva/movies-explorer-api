@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { regExUrl } = require('../utils/constants');
+const { regExUrl, badFormatMessage } = require('../utils/constants');
 
 const userSchema = new mongoose.Schema({
   country: {
@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator: (value) => regExUrl.test(value),
-      message: 'Неверный формат ссылки',
+      message: badFormatMessage,
     },
   },
   trailerLink: {
@@ -35,7 +35,7 @@ const userSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator: (value) => regExUrl.test(value),
-      message: 'Неверный формат ссылки',
+      message: badFormatMessage,
     },
   },
   thumbnail: {
@@ -43,7 +43,7 @@ const userSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator: (value) => regExUrl.test(value),
-      message: 'Неверный формат ссылки',
+      message: badFormatMessage,
     },
   },
   owner: {

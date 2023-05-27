@@ -1,8 +1,8 @@
 const allowedCors = [
-  'https://movies.lajolla.nomoredomains.monster',
-  'http://movies.lajolla.nomoredomains.monster',
-  'https://api.movies.lajolla.nomoredomains.monster',
-  'http://api.movies.lajolla.nomoredomains.monster',
+  'https://movies.lajolla.nomoredomains.rocks',
+  'http://movies.lajolla.nomoredomains.rocks',
+  'https://api.movies.lajolla.nomoredomains.rocks',
+  'http://api.movies.lajolla.nomoredomains.rocks',
   'http://localhost:3000',
   'http://localhost:3001',
 ];
